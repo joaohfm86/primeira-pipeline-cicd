@@ -27,6 +27,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: [CI]
     steps:
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+          credentials_json: '${{ secrets.gcp_credentials }}'
+    - id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v2'
+      with:
+        cluster_name: 'cluster-1'
+        location: 'us-central1-c'
     - name: Obtendo o código
       uses: actions/checkout@v4.1.7
     - name: Configuração de contexto do kubernetes
