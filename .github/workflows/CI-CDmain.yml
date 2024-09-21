@@ -1,10 +1,10 @@
-name: CI-CD
+name: CI-CD-JH
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 jobs:
-  CI-JH:
+  CI:
     runs-on: ubuntu-latest
     steps:
     - name: Obtendo o código
@@ -23,7 +23,7 @@ jobs:
           tags: |
             joaohfm/aula-primeira-pipeline:v${{ github.run_number }}
             joaohfm/aula-primeira-pipeline:latest
-  CD-JH:
+  CD:
     runs-on: ubuntu-latest
     needs: [CI]
     steps:
