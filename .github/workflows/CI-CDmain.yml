@@ -38,7 +38,7 @@ jobs:
         location: 'us-central1-c'
     - name: Install Google Auth Plugin
       run: |-
-          gcloud components install gke-gcloud-auth-plugin
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
     - name: Obtendo o código
       uses: actions/checkout@v4.1.7
     - name: Configuração de contexto do kubernetes
