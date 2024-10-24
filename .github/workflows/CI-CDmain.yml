@@ -45,6 +45,7 @@ jobs:
         sudo apt-get update && sudo apt-get install google-cloud-cli
         sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
         gcloud init
+        gcloud auth login --cred-file= '${{ secrets.GCP_CREDENTIALS }}'
     - name: Obtendo o código
       uses: actions/checkout@v4.1.7
     - name: Configuração de contexto do kubernetes
