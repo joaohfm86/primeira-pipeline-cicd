@@ -38,7 +38,8 @@ jobs:
       with:
         cluster_name: 'cluster-1'
         location: 'us-central1-c'
-    
+    - run: |-
+        gcloud --quiet auth configure-docker
     - name: Configuração de contexto do kubernetes
       uses: azure/k8s-set-context@v4
       with:
