@@ -28,6 +28,8 @@ jobs:
     needs: [CI]
     steps:
     - name: Obtendo o código
+      uses: actions/checkout@v4.1.7
+    - name: Autenticação GKE
       uses: "google-github-actions/auth@v2"
       with:
         credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
