@@ -28,18 +28,17 @@ jobs:
     needs: [CI]
     steps:
     - name: Obtendo o código
-      uses: actions/checkout@v4.1.7
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v2'
+      uses: "google-github-actions/auth@v2"
       with:
-        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-    - id: 'get-credentials'
-      uses: 'google-github-actions/get-gke-credentials@v2'
+        credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+    - uses: "google-github-actions/setup-gcloud@v2"
       with:
-        cluster_name: 'cluster-1'
-        location: 'us-central1-c'
-    - run: |-
-        gcloud --quiet auth configure-docker
+        install_components: "gke-gcloud-auth-plugin"
+    - name: Authenticate to GKE cluster
+      uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: cluster1
+        location: us-central1-c 
     - name: Configuração de contexto do kubernetes
       uses: azure/k8s-set-context@v4
       with:
