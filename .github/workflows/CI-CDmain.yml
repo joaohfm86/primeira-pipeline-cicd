@@ -37,7 +37,7 @@ jobs:
     - name: Authenticate to GKE cluster
       uses: google-github-actions/get-gke-credentials@v2
       with:
-        cluster_name: cluster1
+        cluster_name: cluster-1
         location: us-central1-c 
     - name: Configuração de contexto do kubernetes
       uses: azure/k8s-set-context@v4
