@@ -39,7 +39,7 @@ jobs:
     - name: Authenticate to GKE cluster
       uses: google-github-actions/get-gke-credentials@v2
       with:
-        cluster_name: cluster-1
+        cluster_name: my-first-cluster-1
         location: us-central1-c 
     - name: Execução do Manifesto
       uses: Azure/k8s-deploy@v5
