@@ -24,27 +24,9 @@ jobs:
             joaohfm/aula-primeira-pipeline:v${{ github.run_number }}
             joaohfm/aula-primeira-pipeline:latest
   CD:
-    runs-on: ubuntu-latest
     needs: [CI]
-    steps:
-    - name: Obtendo o código
-      uses: actions/checkout@v4.1.7
-    - name: Autenticação GKE
-      uses: "google-github-actions/auth@v2"
-      with:
-        credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
-    - uses: "google-github-actions/setup-gcloud@v2"
-      with:
-        install_components: "gke-gcloud-auth-plugin"
-    - name: Authenticate to GKE cluster
-      uses: google-github-actions/get-gke-credentials@v2
-      with:
-        cluster_name: my-first-cluster-1
-        location: us-central1-c 
-    - name: Execução do Manifesto
-      uses: Azure/k8s-deploy@v5
-      with:
-        manifests: |
-          ./k8s/deployment.yaml
-        images: |
-          joaohfm/aula-primeira-pipeline:v${{ github.run_number }}
+    uses: joaohfm86/primeira-pipeline-cicd/.github/workflows/deploy.yml@main
+    with:
+      manifests: k8s/deployment.yaml
+      images: joaohfm/aula-primeira-pipeline:v${{ github.run_number }}
+    secrets: inherit

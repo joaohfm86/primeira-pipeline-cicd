@@ -1,0 +1,35 @@
+name: Deploy no Kubernetes
+on:
+    workflow_call:
+        inputs:
+            manifests:
+                type: string
+                required: true
+                description: "Arquivos de manifesto para deploy"
+            images:
+                type: string
+                required: true
+                description: "Imagens que serão alteradas nos manifestos"
+jobs:
+   deploy-k8s:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Obtendo o código
+      uses: actions/checkout@v4.1.7
+    - name: Autenticação GKE
+      uses: "google-github-actions/auth@v2"
+      with:
+        credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+    - uses: "google-github-actions/setup-gcloud@v2"
+      with:
+        install_components: "gke-gcloud-auth-plugin"
+    - name: Authenticate to GKE cluster
+      uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: my-first-cluster-1
+        location: us-central1-c 
+    - name: Execução do Manifesto
+      uses: Azure/k8s-deploy@v5
+      with:
+        manifests: ${{ inputs.manifests }}
+        images: ${{ inputs.images }}
